@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Para Norita</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --bg-deep: #171226;
+  --bg-mid: #211a38;
+  --gold: #e8b34f;
+  --blush: #e8a0b4;
+  --cream: #f6efe6;
+  --cream-dim: #c9c0d6;
+  --line: rgba(246,239,230,0.14);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg-deep);
+  color:var(--cream);
+  font-family:'Karla', sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+::selection{
+  background:var(--gold);
+  color:var(--bg-deep);
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+  }
+}
+
+a,
+button{
+  font-family:inherit;
+}
+
+button:focus-visible,
+a:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:4px;
+}
+
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+
+/* ---------- Starfield ---------- */
+
+#stars{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* ---------- Hero ---------- */
+
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:8vh 6vw;
+  z-index:1;
+}
+
+.hero .eyebrow{
+  margin-bottom:1.4rem;
+  opacity:0;
+  animation:rise 1s ease 0.2s forwards;
+}
+
+.hero h1{
+  font-family:'Fraunces', serif;
+  font-weight:500;
+  font-style:italic;
+  font-size:clamp(2.6rem, 9vw, 6rem);
+  line-height:1.02;
+  color:var(--cream);
+  opacity:0;
+  animation:rise 1.1s ease 0.45s forwards;
+}
+
+.hero h1 span{
+  color:var(--blush);
+  font-style:normal;
+  font-weight:600;
+}
+
+.hero p.sub{
+  margin-top:1.6rem;
+  max-width:34ch;
+  font-size:1.05rem;
+  color:var(--cream-dim);
+  opacity:0;
+  animation:rise 1.1s ease 0.75s forwards;
+}
+
+@keyframes rise{
+  from{
+    opacity:0;
+    transform:translateY(16px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.scroll-hint{
+  position:absolute;
+  bottom:6vh;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.14em;
+  color:var(--cream-dim);
+  text-transform:uppercase;
+  opacity:0;
+  animation:
+    rise 1s ease 1.2s forwards,
+    bob 2.6s ease-in-out 2.2s infinite;
+}
+
+@keyframes bob{
+  0%,100%{
+    transform:translate(-50%,0);
+  }
+
+  50%{
+    transform:translate(-50%,6px);
+  }
+}
+
+/* ---------- Sections ---------- */
+
+section{
+  position:relative;
+  z-index:1;
+  max-width:720px;
+  margin:0 auto;
+  padding:14vh 6vw;
+}
+
+.section-head{
+  margin-bottom:3rem;
+}
+
+.section-head .eyebrow{
+  display:block;
+  margin-bottom:0.9rem;
+}
+
+.section-head h2{
+  font-family:'Fraunces', serif;
+  font-weight:500;
+  font-style:italic;
+  font-size:clamp(1.7rem, 4.2vw, 2.6rem);
+  color:var(--cream);
+}
+
+/* ---------- Lista ---------- */
+
+.traits{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:1.4rem;
+}
+
+.traits li{
+  display:flex;
+  gap:1.1rem;
+  align-items:flex-start;
+  padding-bottom:1.4rem;
+  border-bottom:1px solid var(--line);
+  opacity:0;
+  transform:translateY(14px);
+}
+
+.traits li:last-child{
+  border-bottom:none;
+}
+
+.traits li .mark{
+  font-family:'JetBrains Mono', monospace;
+  color:var(--gold);
+  font-size:0.85rem;
+  padding-top:0.2rem;
+  flex-shrink:0;
+}
+
+.traits li p{
+  font-size:1.08rem;
+  line-height:1.6;
+  color:var(--cream-dim);
+}
+
+.traits li strong{
+  color:var(--cream);
+  font-weight:700;
+}
+
+/* ---------- Recuerdo ---------- */
+
+.memory-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:2.6rem 2rem;
+  background:
+    linear-gradient(
+      160deg,
+      rgba(232,179,79,0.06),
+      rgba(232,160,180,0.04)
+    );
+  opacity:0;
+  transform:translateY(14px);
+}
+
+.memory-card p{
+  font-size:1.12rem;
+  line-height:1.75;
+  color:var(--cream-dim);
+}
+
+.memory-card p + p{
+  margin-top:1.1rem;
+}
+
+.memory-card .signoff{
+  display:block;
+  margin-top:1.6rem;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.78rem;
+  color:var(--gold);
+  letter-spacing:0.06em;
+}
+
+/* ---------- Reveal ---------- */
+
+.reveal{
+  opacity:0;
+  transform:translateY(16px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.reveal.in{
+  opacity:1;
+  transform:none;
+}
+
+/* ---------- Final ask ---------- */
+
+.ask{
+  text-align:center;
+  padding-top:10vh;
+  padding-bottom:16vh;
+}
+
+.ask h2{
+  font-family:'Fraunces', serif;
+  font-weight:500;
+  font-style:italic;
+  font-size:clamp(2rem, 6vw, 3.2rem);
+  line-height:1.15;
+  color:var(--cream);
+  margin-bottom:1rem;
+}
+
+.ask h2 em{
+  color:var(--gold);
+  font-style:normal;
+  font-weight:600;
+}
+
+.ask p.small{
+  color:var(--cream-dim);
+  margin-bottom:2.6rem;
+}
+
+/* ---------- Botones ---------- */
+
+.choices{
+  display:flex;
+  gap:1rem;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.choices.hidden{
+  display:none !important;
+}
+
+.choice-btn{
+  border:1px solid var(--line);
+  background:rgba(246,239,230,0.03);
+  color:var(--cream);
+  padding:0.95rem 1.9rem;
+  border-radius:999px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:all 0.25s ease;
+  min-width:160px;
+}
+
+.choice-btn.primary{
+  background:var(--gold);
+  color:var(--bg-deep);
+  border-color:var(--gold);
+  font-weight:700;
+}
+
+.choice-btn:hover{
+  transform:translateY(-2px);
+  border-color:var(--gold);
+}
+
+.choice-btn.primary:hover{
+  filter:brightness(1.08);
+}
+
+.choice-btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none !important;
+}
+
+/* ---------- Respuesta ---------- */
+
+.response{
+  margin-top:2.4rem;
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  font-size:1.3rem;
+  color:var(--blush);
+  min-height:3rem;
+  opacity:0;
+  transition:opacity 0.6s ease;
+}
+
+.response.show{
+  opacity:1;
+}
+
+/* ---------- Estado de envío ---------- */
+
+.email-status{
+  margin-top:1rem;
+  min-height:1.5rem;
+  font-size:0.85rem;
+  color:var(--cream-dim);
+  opacity:0;
+  transition:opacity 0.4s ease;
+}
+
+.email-status.show{
+  opacity:1;
+}
+
+/* ---------- Footer ---------- */
+
+footer{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:4vh 6vw 8vh;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.7rem;
+  letter-spacing:0.1em;
+  color:var(--cream-dim);
+  opacity:0.6;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+  <span class="eyebrow">
+    para norita
+  </span>
+
+  <h1>
+    Esto llevaba tiempo<br>
+    pensando <span>cómo decírtelo</span>
+  </h1>
+
+  <p class="sub">
+    así que en lugar de encontrar las palabras exactas,
+    mejor te hice esto.
+  </p>
+
+  <span class="scroll-hint">
+    desliza ↓
+  </span>
+
+</section>
+
+
+<!-- =========================
+     COSAS QUE ME GUSTAN
+========================= -->
+
+<section id="traits">
+
+  <div class="section-head reveal">
+
+    <span class="eyebrow">
+      lo que me gusta de ti
+    </span>
+
+    <h2>
+      Casi todo, si soy honesto
+    </h2>
+
+  </div>
+
+
+  <ul class="traits">
+
+    <li class="reveal">
+      <span class="mark">→</span>
+
+      <p>
+        Tu <strong>humor</strong>.
+        Ese que no se parece al de nadie más que conozco.
+      </p>
+    </li>
+
+
+    <li class="reveal">
+      <span class="mark">→</span>
+
+      <p>
+        Tu forma de <strong>pensar</strong> —
+        cómo ves las cosas, cómo las dices sin filtro.
+      </p>
+    </li>
+
+
+    <li class="reveal">
+      <span class="mark">→</span>
+
+      <p>
+        Tu forma de <strong>ser</strong> y de
+        <strong>actuar</strong>, tan tú que es imposible no notarlo.
+      </p>
+    </li>
+
+
+    <li class="reveal">
+      <span class="mark">→</span>
+
+      <p>
+        Que seas tan <strong>bonita</strong> —
+        y lo digo en serio, no he conocido a alguien como tú.
+      </p>
+    </li>
+
+  </ul>
+
+</section>
+
+
+<!-- =========================
+     RECUERDO
+========================= -->
+
+<section id="memory">
+
+  <div class="section-head reveal">
+
+    <span class="eyebrow">
+      02 — el inicio
+    </span>
+
+    <h2>
+      Desde que te conocí
+    </h2>
+
+  </div>
+
+
+  <div class="memory-card reveal">
+
+    <p>
+      No sabría decirte la fecha exacta.
+      Pero desde que empezamos a hablar, algo cambió
+      y llevaba ya bastante tiempo pensando cómo decírtelo.
+    </p>
+
+    <p>
+      Nunca encontré la manera perfecta.
+      Así que hice esto en su lugar: una web.
+    </p>
+
+    <span class="signoff">
+      — esto es lo más cerca que he estado de decírtelo bien
+    </span>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     POSTSCRIPT
+========================= -->
+
+<section id="postscript">
+
+  <div class="memory-card reveal">
+
+    <p>
+      Si algo he aprendido pensando en ti es que no hace falta
+      que todo sea perfecto para ser verdadero.
+      Esto no es perfecto, pero es exactamente lo que siento
+      y quiero contigo.
+    </p>
+
+    <p>
+      Y si por alguna razón esto no cambia nada entre nosotros,
+      al menos ya lo sabes: eres, sin competencia, mi persona favorita,
+      y lo mejor que ha pasado en mi estancia en Puebla.
+    </p>
+
+    <span class="signoff">
+      — con cariño arathcito
+    </span>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PREGUNTA FINAL
+========================= -->
+
+<section class="ask">
+
+  <h2 class="reveal">
+    Entonces, Norita<br>
+
+    <em>
+      ¿quieres ser algo más que amigos?
+    </em>
+  </h2>
+
+
+  <p class="small reveal">
+    sin presión — solo quería que lo supieras,
+    de la forma más honesta que encontré.
+  </p>
+
+
+  <div
+    class="choices reveal"
+    id="choicesBox"
+  >
+
+    <button
+      class="choice-btn primary"
+      id="btnYes"
+      type="button"
+    >
+      💛 Sí, quiero
+    </button>
+
+
+    <button
+      class="choice-btn"
+      id="btnTalk"
+      type="button"
+    >
+      💬 Hablemos en persona
+    </button>
+
+  </div>
+
+
+  <p
+    class="response"
+    id="response"
+  ></p>
+
+
+  <p
+    class="email-status"
+    id="emailStatus"
+  ></p>
+
+</section>
+
+
+<footer>
+  hecho con cariño
+</footer>
+
+
+<script>
+
+/* ==========================================================
+   STARFIELD
+========================================================== */
+
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+
+let stars = [];
+
+
+function resize(){
+
+  canvas.width = window.innerWidth;
+
+  canvas.height = document.body.scrollHeight;
+
+}
+
+
+function makeStars(){
+
+  const count =
+    Math.floor(
+      (canvas.width * canvas.height) / 9000
+    );
+
+
+  stars = Array.from(
+    { length: count },
+    () => ({
+
+      x: Math.random() * canvas.width,
+
+      y: Math.random() * canvas.height,
+
+      r: Math.random() * 1.2 + 0.3,
+
+      base: Math.random() * 0.5 + 0.3,
+
+      speed: Math.random() * 0.02 + 0.005,
+
+      phase: Math.random() * Math.PI * 2
+
+    })
+  );
+
+}
+
+
+resize();
+makeStars();
+
+
+window.addEventListener(
+  'resize',
+  () => {
+
+    resize();
+    makeStars();
+
+  }
+);
+
+
+const reduceMotion =
+  window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+
+function draw(t){
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+
+  for(const s of stars){
+
+    const tw =
+      reduceMotion
+        ? s.base
+        : s.base +
+          Math.sin(
+            t * s.speed + s.phase
+          ) * 0.3;
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+      s.x,
+      s.y,
+      s.r,
+      0,
+      Math.PI * 2
+    );
+
+
+    ctx.fillStyle =
+      `rgba(246,239,230,${Math.max(0, tw)})`;
+
+
+    ctx.fill();
+
+  }
+
+
+  requestAnimationFrame(draw);
+
+}
+
+
+requestAnimationFrame(draw);
+
+
+/* ==========================================================
+   SCROLL REVEAL
+========================================================== */
+
+const revealEls =
+  document.querySelectorAll('.reveal');
+
+
+const io =
+  new IntersectionObserver(
+
+    (entries) => {
+
+      entries.forEach(
+        (entry) => {
+
+          if(entry.isIntersecting){
+
+            entry.target.classList.add('in');
+
+            io.unobserve(entry.target);
+
+          }
+
+        }
+      );
+
+    },
+
+    {
+      threshold:0.2
+    }
+
+  );
+
+
+revealEls.forEach(
+  element => io.observe(element)
+);
+
+
+/* ==========================================================
+   ELEMENTOS
+========================================================== */
+
+const responseEl =
+  document.getElementById('response');
+
+const choicesBox =
+  document.getElementById('choicesBox');
+
+const btnYes =
+  document.getElementById('btnYes');
+
+const btnTalk =
+  document.getElementById('btnTalk');
+
+const emailStatus =
+  document.getElementById('emailStatus');
+
+
+/* ==========================================================
+   MENSAJES
+========================================================== */
+
+const messages = {
+
+  yes:
+    '💛 ¡Qué bonito! Nos vemos cuando regrese. 💛',
+
+  talk:
+    '💬 Va. Te espero para hablarlo con calma. 💬'
+
+};
+
+
+const emailMessages = {
+
+  yes:
+    `🎉 ¡NORITA DIJO SÍ! 🎉
+
+Eligió: "Sí, quiero"
+
+💛 ¡Felicidades Arath! 💛`,
+
+  talk:
+    `💬 NORITA QUIERE HABLAR EN PERSONA 💬
+
+Eligió: "Hablemos en persona"
+
+Prepárate para esa conversación.`
+
+};
+
+
+/* ==========================================================
+   MOSTRAR RESPUESTA
+========================================================== */
+
+function showSaved(choice){
+
+  choicesBox.classList.add('hidden');
+
+  responseEl.textContent =
+    messages[choice] || '';
+
+  responseEl.classList.add('show');
+
+}
+
+
+/* ==========================================================
+   ENVIAR CORREO
+   FORMSubmit AJAX
+========================================================== */
+
+async function sendEmail(choice){
+
+  const respuestaText =
+    choice === 'yes'
+      ? 'Sí, quiero 💛'
+      : 'Hablemos en persona 💬';
+
+
+  const mensajeText =
+    emailMessages[choice];
+
+
+  const formData =
+    new FormData();
+
+
+  formData.append(
+    '_subject',
+    '💌 ¡NORITA RESPONDIÓ TU WEB! ❤️'
+  );
+
+
+  formData.append(
+    'respuesta',
+    respuestaText
+  );
+
+
+  formData.append(
+    'mensaje',
+    mensajeText
+  );
+
+
+  formData.append(
+    '_captcha',
+    'false'
+  );
+
+
+  formData.append(
+    '_template',
+    'table'
+  );
+
+
+  try{
+
+    emailStatus.textContent =
+      'Enviando respuesta...';
+
+    emailStatus.classList.add('show');
+
+
+    const response =
+      await fetch(
+        'https://formsubmit.co/ajax/everarath2020@gmail.com',
+        {
+
+          method:'POST',
+
+          body:formData,
+
+          headers:{
+            'Accept':'application/json'
+          }
+
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        'El servidor rechazó el envío.'
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    console.log(
+      'Respuesta de FormSubmit:',
+      data
+    );
+
+
+    emailStatus.textContent =
+      '💌 Respuesta enviada.';
+
+
+    return true;
+
+
+  }catch(error){
+
+    console.error(
+      'Error enviando correo:',
+      error
+    );
+
+
+    emailStatus.textContent =
+      'La respuesta quedó registrada.';
+
+
+    return false;
+
+  }
+
+}
+
+
+/* ==========================================================
+   GUARDAR RESPUESTA
+========================================================== */
+
+async function saveAnswer(choice){
+
+  /*
+    Deshabilitamos los botones inmediatamente
+    para evitar dobles clics.
+  */
+
+  btnYes.disabled = true;
+
+  btnTalk.disabled = true;
+
+
+  /*
+    Guardamos la respuesta en el navegador.
+  */
+
+  try{
+
+    localStorage.setItem(
+      'respuesta-norita',
+      choice
+    );
+
+  }catch(error){
+
+    console.warn(
+      'No se pudo guardar en localStorage:',
+      error
+    );
+
+  }
+
+
+  /*
+    Mostramos inmediatamente la respuesta.
+  */
+
+  showSaved(choice);
+
+
+  /*
+    Después intentamos enviar el correo.
+  */
+
+  await sendEmail(choice);
+
+}
+
+
+/* ==========================================================
+   BOTÓN "SÍ"
+========================================================== */
+
+btnYes.addEventListener(
+  'click',
+  (event) => {
+
+    event.preventDefault();
+
+    saveAnswer('yes');
+
+  }
+);
+
+
+/* ==========================================================
+   BOTÓN "HABLEMOS"
+========================================================== */
+
+btnTalk.addEventListener(
+  'click',
+  (event) => {
+
+    event.preventDefault();
+
+    saveAnswer('talk');
+
+  }
+);
+
+
+/* ==========================================================
+   INICIO
+==========================================================
+
+   IMPORTANTE:
+
+   No mostramos automáticamente una respuesta guardada.
+   De esta manera, si vuelves a abrir la página en tu
+   navegador, las opciones seguirán apareciendo.
+
+========================================================== */
+
+try{
+
+  localStorage.removeItem(
+    'respuesta-norita'
+  );
+
+}catch(error){
+
+  console.warn(
+    'No se pudo limpiar localStorage.',
+    error
+  );
+
+}
+
+
+choicesBox.classList.remove('hidden');
+
+
+btnYes.disabled = false;
+
+btnTalk.disabled = false;
+
+
+/* ==========================================================
+   FIN
+========================================================== */
+
+</script>
+
+</body>
+</html>
