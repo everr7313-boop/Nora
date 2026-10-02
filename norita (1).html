@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>una_pequeña_pregunta.exe</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Courier New', Courier, monospace;
+      user-select: none;
+    }
+
+    body {
+      background-color: #fce4ec;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #4a4a4a;
+    }
+
+    .window {
+      background-color: #fff0f5;
+      border: 3px solid #ff80ab;
+      box-shadow: 6px 6px 0px #ff4081;
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+      border-radius: 8px;
+      position: relative;
+      margin: auto;
+    }
+
+    .title-bar {
+      background-color: #ff80ab;
+      color: white;
+      padding: 6px 10px;
+      font-weight: bold;
+      font-size: 14px;
+      margin: -20px -20px 20px -20px;
+      border-radius: 4px 4px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .title-bar .close-btn {
+      background: #ff4081;
+      border: none;
+      color: white;
+      font-weight: bold;
+      width: 20px;
+      height: 20px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .screen {
+      display: none;
+      text-align: center;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .cat-avatar {
+      font-size: 50px;
+      margin-bottom: 10px;
+      animation: bounce 1.5s infinite alternate;
+    }
+
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+
+    h2 {
+      font-size: 18px;
+      color: #c2185b;
+      margin-bottom: 20px;
+    }
+
+    p.subtitle {
+      font-size: 12px;
+      color: #888;
+      margin-top: -10px;
+      margin-bottom: 20px;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      position: relative;
+      min-height: 50px;
+    }
+
+    button.pixel-btn {
+      background-color: #ff80ab;
+      color: white;
+      border: 2px solid #c2185b;
+      box-shadow: 3px 3px 0px #c2185b;
+      padding: 10px 20px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: transform 0.1s;
+    }
+
+    button.pixel-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #c2185b;
+    }
+
+    #btn-no {
+      position: relative;
+      background-color: #f48fb1;
+      border-color: #ad1457;
+      box-shadow: 3px 3px 0px #ad1457;
+    }
+
+    .grid-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-card {
+      background: white;
+      border: 2px solid #ff80ab;
+      padding: 12px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option-card.selected {
+      background-color: #ff80ab;
+      color: white;
+      border-color: #c2185b;
+      box-shadow: 2px 2px 0px #c2185b;
+    }
+
+    input[type="date"] {
+      width: 80%;
+      padding: 10px;
+      border: 2px solid #ff80ab;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      outline: none;
+      color: #4a4a4a;
+      text-align: center;
+    }
+
+    .ticket {
+      background: #fff;
+      border: 2px dashed #ff80ab;
+      padding: 15px;
+      text-align: left;
+      font-size: 12px;
+      line-height: 1.6;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      box-shadow: 2px 2px 0px #f48fb1;
+    }
+
+    .ticket-title {
+      text-align: center;
+      font-weight: bold;
+      color: #c2185b;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #ff80ab;
+      padding-bottom: 5px;
+    }
+
+    .footer-note {
+      font-size: 10px;
+      color: #aaa;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="window">
+    <div class="title-bar">
+      <span id="window-title">una_pequeña_pregunta.exe</span>
+      <button class="close-btn">x</button>
+    </div>
+
+    <!-- PASO 1: Pregunta Inicial -->
+    <div id="step-1" class="screen active">
+      <div class="cat-avatar">🐱</div>
+      <p class="subtitle">.. pregunta del dia ..</p>
+      <h2>¿Quieres salir conmigo, Norita?</h2>
+      <div class="btn-container">
+        <button class="pixel-btn" onclick="goToStep(2)">¡Sí!</button>
+        <button class="pixel-btn" id="btn-no" onmouseover="escapeBtn()" onclick="escapeBtn()">No</button>
+      </div>
+    </div>
+
+    <!-- PASO 2: Elegir Fecha -->
+    <div id="step-2" class="screen">
+      <div class="cat-avatar">📅</div>
+      <p class="subtitle">.. paso 1 de 2 ..</p>
+      <h2>Elige nuestro día</h2>
+      <input type="date" id="date-picker">
+      <br>
+      <button class="pixel-btn" onclick="validateDate()">Continuar</button>
+    </div>
+
+    <!-- PASO 3: Elegir Actividad -->
+    <div id="step-3" class="screen">
+      <div class="cat-avatar">✨</div>
+      <p class="subtitle">.. paso 2 de 2 ..</p>
+      <h2>¿Qué deberíamos hacer?</h2>
+      <div class="grid-options">
+        <div class="option-card" onclick="selectOption(this, 'Ir al Gym juntos 🏋️‍♀️')">Ir al Gym 🏋️‍♀️</div>
+        <div class="option-card" onclick="selectOption(this, 'Salir a correr 🏃‍♀️')">Salir a correr 🏃‍♀️</div>
+        <div class="option-card" onclick="selectOption(this, 'Noche de cine 🎬')">Noche de cine 🎬</div>
+        <div class="option-card" onclick="selectOption(this, 'Ir a mi pueblo 🏞️')">Ir a mi pueblo 🏞️</div>
+        <div class="option-card" onclick="selectOption(this, '¿Quieres bailar conmigo? 💃')">¿Bailamos? 💃</div>
+        <div class="option-card" onclick="selectOption(this, 'Sorpréndeme 🎁')">Sorpréndeme 🎁</div>
+      </div>
+      <button class="pixel-btn" onclick="confirmPlan()">Confirmar</button>
+    </div>
+
+    <!-- PASO 4: Ticket Confirmado -->
+    <div id="step-4" class="screen">
+      <div class="cat-avatar">💌</div>
+      <p class="subtitle">oficialmente confirmado</p>
+      <h2>¡Es una cita!</h2>
+
+      <div class="ticket">
+        <div class="ticket-title">RESERVACIÓN COMPLETA</div>
+        <strong>PARA:</strong> Norita <br>
+        <strong>CUÁNDO:</strong> <span id="ticket-date"></span> <br>
+        <strong>PLAN:</strong> <span id="ticket-plan"></span> <br>
+        <strong>ESTADO:</strong> Confirmado con muchas ganas ✨
+        <hr style="border: none; border-top: 1px dashed #ff80ab; margin: 10px 0;">
+        <p style="text-align: center; margin: 0; font-style: italic; font-size: 11px; color: #666;">
+          "Prometo que será un momento genial."
+        </p>
+      </div>
+
+      <button class="pixel-btn" onclick="resetForm()">Pregúntame otra vez</button>
+    </div>
+
+    <div class="footer-note">Hecho con ternura • pulsa X, el otro botón se escapa</div>
+  </div>
+
+  <script>
+    let selectedPlan = "";
+    let noBtnCount = 0;
+
+    const noTexts = [
+      "¿Segura?",
+      "¡Inténtalo de nuevo!",
+      "Un poco tímido...",
+      "¿De verdad?",
+      "¡No puedes decir que no!"
+    ];
+
+    function escapeBtn() {
+      const btnNo = document.getElementById('btn-no');
+      noBtnCount++;
+
+      if (noBtnCount < noTexts.length) {
+        btnNo.innerText = noTexts[noBtnCount];
+      } else {
+        btnNo.innerText = "¡Sí!";
+        btnNo.onclick = function() { goToStep(2); };
+        return;
+      }
+
+      const x = (Math.random() - 0.5) * 160;
+      const y = (Math.random() - 0.5) * 100;
+      btnNo.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function goToStep(stepNumber) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(`step-${stepNumber}`).classList.add('active');
+
+      if(stepNumber === 2) {
+        document.getElementById('window-title').innerText = "elige_un_dia.cat";
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date-picker').min = today;
+      } else if(stepNumber === 3) {
+        document.getElementById('window-title').innerText = "hagamos_planes.txt";
+      } else if(stepNumber === 4) {
+        document.getElementById('window-title').innerText = "es_una_cita.txt";
+      }
+    }
+
+    function validateDate() {
+      const dateVal = document.getElementById('date-picker').value;
+      if (!dateVal) {
+        alert("¡Por favor elige una fecha especial!");
+        return;
+      }
+      goToStep(3);
+    }
+
+    function selectOption(element, planName) {
+      document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+      element.classList.add('selected');
+      selectedPlan = planName;
+    }
+
+    function confirmPlan() {
+      if (!selectedPlan) {
+        alert("¡Selecciona una opción para continuar!");
+        return;
+      }
+
+      const dateVal = document.getElementById('date-picker').value;
+
+      document.getElementById('ticket-date').innerText = dateVal;
+      document.getElementById('ticket-plan').innerText = selectedPlan;
+
+      // Envío SILENCIOSO e INVISIBLE a tu correo en segundo plano
+      fetch("https://formspree.io/f/everarath2020@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          destino: "Ever",
+          de: "Norita",
+          fecha_elegida: dateVal,
+          plan_seleccionado: selectedPlan
+        })
+      }).catch(() => {});
+
+      goToStep(4);
+    }
+
+    function resetForm() {
+      selectedPlan = "";
+      noBtnCount = 0;
+      const btnNo = document.getElementById('btn-no');
+      btnNo.innerText = "No";
+      btnNo.style.transform = "none";
+      btnNo.onclick = function() { escapeBtn(); };
+      document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+      document.getElementById('date-picker').value = "";
+      goToStep(1);
+    }
+  </script>
+</body>
+</html>
